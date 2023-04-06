@@ -11,7 +11,10 @@ export default async function handler(req, res) {
     }
   };
   request(options, function (error, response) {
-    if (error) throw new Error(error);
+    if (error) {
+      res.status(500).json({ error: error })
+      return
+    }
     res.status(200).json({ answer: response.body })
   });
 }
