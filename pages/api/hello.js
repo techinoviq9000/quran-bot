@@ -1,5 +1,17 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+var request = require('request');
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+export default async function handler(req, res) {
+  var options = {
+    'method': 'POST',
+    'url': 'http://icemelt7.pythonanywhere.com/gpt',
+    'headers': {
+    },
+    formData: {
+      'query': req.body.query
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    res.status(200).json({ answer: response.body })
+  });
 }
